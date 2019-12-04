@@ -33,7 +33,7 @@ namespace OfficeApp.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetFile()
+        public IHttpActionResult GetFiles()
         {
             return Ok(new
             {
@@ -92,16 +92,16 @@ namespace OfficeApp.Controllers
 
             try
             {
-                var number = _random.Next(0, 9);
-                if (number % 2 == 0)
-                {
-                    return Ok(new
-                    {
-                        Status = false,
-                        Message = "Something went wrong",
-                        Url = ""
-                    });
-                }
+                //var number = _random.Next(0, 9);
+                //if (number % 2 == 0)
+                //{
+                //    return Ok(new
+                //    {
+                //        Status = false,
+                //        Message = "Something went wrong",
+                //        Url = ""
+                //    });
+                //}
 
                 var file = HttpContext.Current.Request.Files.Count > 0 ?
                 HttpContext.Current.Request.Files[0] : null;
@@ -159,6 +159,36 @@ namespace OfficeApp.Controllers
                     Status = true,
                     Message = "File deleted successfully",
                     Url = GetVirtualFilePath(fileName),
+                });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new
+                {
+                    Status = false,
+                    Url = "",
+                    Exception = ex
+                });
+            }
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteAllFile()
+        {
+            try
+            {
+                var fileNames = new DirectoryInfo(_physicalPath).GetFiles().Select(i => i.Name);
+                foreach (var fileName in fileNames)
+                {
+                    var filePath = GetPhysicalFilePath(fileName);
+                    if (File.Exists(filePath))
+                        File.Delete(filePath);
+                }
+
+                return Ok(new
+                {
+                    Status = true,
+                    Message = "File deleted successfully"
                 });
             }
             catch (Exception ex)
