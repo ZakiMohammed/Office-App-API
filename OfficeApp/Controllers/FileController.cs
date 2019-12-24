@@ -92,16 +92,16 @@ namespace OfficeApp.Controllers
 
             try
             {
-                //var number = _random.Next(0, 9);
-                //if (number % 2 == 0)
-                //{
-                //    return Ok(new
-                //    {
-                //        Status = false,
-                //        Message = "Something went wrong",
-                //        Url = ""
-                //    });
-                //}
+                var number = _random.Next(0, 9);
+                if (number % 2 == 0)
+                {
+                    return Ok(new
+                    {
+                        Status = false,
+                        Message = "Something went wrong",
+                        Url = ""
+                    });
+                }
 
                 var file = HttpContext.Current.Request.Files.Count > 0 ?
                 HttpContext.Current.Request.Files[0] : null;

@@ -10,5 +10,6 @@ namespace OfficeApp.App_Start
         public const string MONGO_CONNECTION_STRING = "mongodb://localhost";
         public const string MONGO_DATABASE = "hospital";
         public const string UPLOADS_PATH = "~/Uploads";
+        public const string UPLOADS_MOCK_PATH = "~/Uploads/Mock";
     }
 }
